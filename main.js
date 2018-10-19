@@ -50,11 +50,11 @@ module.exports.loop = function () {
         }
     }
 
-    var minimumNumberOfHarvesters = 1;
-    var minimumNumberOfUpgraders = 1;
-    var minimumNumberOfBuilders = 1;
-    var minimumNumberOfRepairers = 1;
-    var minimumNumberOfWallRepairers = 1;
+    var minimumNumberOfHarvesters = 3;
+    var minimumNumberOfUpgraders = 2;
+    var minimumNumberOfBuilders = 3;
+    var minimumNumberOfRepairers = 2;
+    var minimumNumberOfWallRepairers = 2;
     var minimumNumberOfLongDistanceHarvestersW3N5 = 1;
     var minimumNumberOfLongDistanceHarvestersW2N4 = 1;
 
@@ -92,10 +92,10 @@ module.exports.loop = function () {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'wallRepairer');
     }
     else if (numberOfLongDistanceHarvestersW3N5 < minimumNumberOfLongDistanceHarvestersW3N5) {
-        name = Game.spawns.Spawn1.createLongDistanceHarvester(energy, 5, HOME, 'W8N2', 0);
+        name = Game.spawns.Spawn1.createLongDistanceHarvester(energy, 2, HOME, 'W8N2', 0);
     }
     else if (numberOfLongDistanceHarvestersW2N4 < minimumNumberOfLongDistanceHarvestersW2N4) {
-        name = Game.spawns.Spawn1.createLongDistanceHarvester(energy, 3, HOME, 'W7N3', 0);
+        name = Game.spawns.Spawn1.createLongDistanceHarvester(energy, 2, HOME, 'W7N3', 0);
     }
     else {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
