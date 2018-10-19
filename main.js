@@ -4,6 +4,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
+var roleWallRepairer = require('role.wallRepairer');
 
 module.exports.loop = function () {
 
@@ -28,17 +29,33 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'repairer') {
             roleRepairer.run(creep);
         }
+        else if (creep.memory.role == 'wallRepairer') {
+            roleWallRepairer.run(creep);
+        }
+    }
+
+    var towers = Game.rooms.W5N3.find(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_TOWER
+    });
+
+    for (let tower of towers){
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if (target != undefined){
+            tower.attack(target);
+        }
     }
 
     var minimumNumberOfHarvesters = 5;
-    var minimumNumberOfUpgraders = 1;
+    var minimumNumberOfUpgraders = 2;
     var minimumNumberOfBuilders = 1;
     var minimumNumberOfRepairers = 2;
+    var minimumNumberOfWallRepairers = 1;
 
     var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
     var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
     var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
     var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
+    var numberOfWallRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer');
 
     var energy = Game.spawns.Spawn1.room.energyCapacityAvailable;
     var name = undefined;
@@ -59,6 +76,9 @@ module.exports.loop = function () {
     }
     else if (numberOfBuilders < minimumNumberOfBuilders) {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');
+    }
+    else if (numberOfWallRepairers < minimumNumberOfWallRepairers) {
+        name = Game.spawns.Spawn1.createCustomCreep(energy, 'wallRepairer');
     }
     else {
         name = Game.spawns.Spawn1.createCustomCreep(energy, 'builder');

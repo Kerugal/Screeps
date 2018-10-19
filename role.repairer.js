@@ -21,7 +21,6 @@ module.exports = {
                 filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
             });
 
-
             if (structure != undefined) {
 
                 if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
