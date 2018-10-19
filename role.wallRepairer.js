@@ -24,7 +24,6 @@ module.exports = {
                         break;
                     }
                 }
-
                 if (target != undefined) {
                     break;
                 }
